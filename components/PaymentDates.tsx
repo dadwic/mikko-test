@@ -2,6 +2,8 @@ import type { PaymentDate } from "../interfaces";
 import * as React from "react";
 import useSwr from "swr";
 import moment from "moment";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -20,9 +22,20 @@ export default function PaymentDates() {
 
   return (
     <React.Fragment>
-      <Typography component="h2" variant="h6" color="primary" gutterBottom>
-        Payment dates of 2022
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography component="h2" variant="h6" color="primary" gutterBottom>
+          Payment dates of 2022
+        </Typography>
+        <Button size="small" variant="outlined">
+          Export
+        </Button>
+      </Box>
       <Table>
         <TableHead>
           <TableRow>
@@ -36,10 +49,10 @@ export default function PaymentDates() {
             <TableRow hover key={p.id}>
               <TableCell>{p.month}</TableCell>
               <TableCell>
-                {moment.unix(p.salaryPaymentDate).format("DD/MM/YYYY, hh:mm")}
+                {moment.unix(p.salaryPaymentDate).format("DD/MM/YYYY")}
               </TableCell>
               <TableCell>
-                {moment.unix(p.bonusPaymentDate).format("DD/MM/YYYY, hh:mm")}
+                {moment.unix(p.bonusPaymentDate).format("DD/MM/YYYY")}
               </TableCell>
             </TableRow>
           ))}

@@ -1,5 +1,5 @@
 export type PaymentDate = {
-  id: number;
+  id: string;
   month: string;
   salaryPaymentDate: number;
   bonusPaymentDate: number;
