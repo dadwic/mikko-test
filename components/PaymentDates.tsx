@@ -1,4 +1,3 @@
-import type { PaymentDate } from "../interfaces";
 import * as React from "react";
 import useSwr from "swr";
 import moment from "moment";
@@ -10,12 +9,22 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
+import NativeSelect from "@mui/material/NativeSelect";
 import LinearProgress from "@mui/material/LinearProgress";
+import type { PaymentDate } from "interfaces";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function PaymentDates() {
-  const { data, error } = useSwr<PaymentDate[]>("/api/payment-dates", fetcher);
+  const [year, setYear] = React.useState("2022");
+  const { data, error } = useSwr<PaymentDate[]>(
+    `/api/payment-dates?y=${year}`,
+    fetcher
+  );
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setYear(event.target.value as string);
+  };
 
   if (error) return <div>Failed to load data</div>;
   if (!data) return <LinearProgress sx={{ m: 2 }} />;
@@ -29,9 +38,32 @@ export default function PaymentDates() {
           justifyContent: "space-between",
         }}
       >
-        <Typography component="h2" variant="h6" color="primary" gutterBottom>
-          Payment dates of 2022
-        </Typography>
+        <Box
+          sx={{
+            width: 300,
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography component="h2" variant="h6" color="primary" gutterBottom>
+            Payment dates of
+          </Typography>
+          <Box sx={{ minWidth: 120 }}>
+            <NativeSelect
+              defaultValue={year}
+              onChange={handleChange}
+              inputProps={{
+                name: "year",
+              }}
+            >
+              {["2022", "2023", "2024", "2025"].map((y, i) => (
+                <option value={y} key={i}>
+                  {y}
+                </option>
+              ))}
+            </NativeSelect>
+          </Box>
+        </Box>
         <Button size="small" variant="outlined">
           Export
         </Button>

@@ -17,7 +17,8 @@
     "jsxImportSource": "@emotion/react",
     "incremental": true,
     "paths": {
-      "components/*": ["components/*"]
+      "components/*": ["components/*"],
+      "interfaces/*": ["interfaces/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

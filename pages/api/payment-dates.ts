@@ -1,27 +1,35 @@
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 import type { NextApiRequest, NextApiResponse } from "next";
-import type { PaymentDate } from "../../interfaces";
+import type { PaymentDate } from "interfaces";
 
-export default function handler(_req: NextApiRequest, res: NextApiResponse) {
+const isWeekend = (d: string) => ["Sunday", "Saturday"].includes(d);
+
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   let result: PaymentDate[] = [];
-  const monthInt = new Date().getMonth();
+  // Get year int from query param
+  const year: string = (req.query.y as string) || "2022";
+  const yearInt: number = parseInt(year);
+  // Get current month int
+  const monthInt: number = moment().month();
 
   for (let index = monthInt; index < 12; ++index) {
-    const endOfMonth = moment([2022, index]).endOf("month");
-    const isWeekend = ["Sunday", "Saturday"].includes(
-      endOfMonth.format("dddd")
-    );
+    const endOfMonth = moment([yearInt, index]).endOf("month");
+    const _15OfMonth = moment([yearInt, index]).add(14, "days");
 
-    const salaryPaymentDate = isWeekend
+    const salaryPaymentDate = isWeekend(endOfMonth.format("dddd"))
       ? endOfMonth.add(1, "weeks").startOf("isoWeek").unix() // isoWeek starts Monday
       : endOfMonth.unix();
+
+    const bonusPaymentDate = isWeekend(_15OfMonth.format("dddd"))
+      ? _15OfMonth.add(1, "weeks").startOf("isoWeek").unix() // isoWeek starts Monday
+      : _15OfMonth.unix();
 
     result.push({
       id: uuidv4(),
       month: moment.months(index),
       salaryPaymentDate,
-      bonusPaymentDate: 1657046064,
+      bonusPaymentDate,
     });
   }
   // Get data from your database
