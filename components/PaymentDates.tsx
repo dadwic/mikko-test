@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useRouter } from "next/router";
 import useSwr from "swr";
 import moment from "moment";
 import Box from "@mui/material/Box";
@@ -16,14 +17,24 @@ import type { PaymentDate } from "interfaces";
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function PaymentDates() {
+  const router = useRouter();
   const [year, setYear] = React.useState("2022");
   const { data, error } = useSwr<PaymentDate[]>(
     `/api/payment-dates?y=${year}`,
     fetcher
   );
 
+  React.useEffect(() => {
+    const y = router.query.year as string;
+    // Check the query param is numeric and >= the unix epoch
+    if (!isNaN(parseInt(y)) && parseInt(y) >= 1970) setYear(y);
+  }, [router.query.year]);
+
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setYear(event.target.value as string);
+    router.push({
+      pathname: "/",
+      query: { year: event.target.value },
+    });
   };
 
   if (error) return <div>Failed to load data</div>;
@@ -40,17 +51,18 @@ export default function PaymentDates() {
       >
         <Box
           sx={{
-            width: 300,
             display: "flex",
             justifyContent: "space-between",
+            flexDirection: { xs: "column", md: "row" },
+            width: { xs: "100%", md: 300 },
           }}
         >
-          <Typography component="h2" variant="h6" color="primary" gutterBottom>
+          <Typography gutterBottom variant="h6" component="h2" color="primary">
             Payment dates of
           </Typography>
           <Box sx={{ minWidth: 120 }}>
             <NativeSelect
-              defaultValue={year}
+              value={year}
               onChange={handleChange}
               inputProps={{
                 name: "year",

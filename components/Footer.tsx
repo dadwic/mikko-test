@@ -25,7 +25,11 @@ export default function Footer() {
       <Container maxWidth="sm">
         <Typography variant="body1">
           Made with ❤️ by{" "}
-          <Link color="inherit" href="http://dadwic.com/" target="_blank">
+          <Link
+            color="inherit"
+            target="_blank"
+            href="https://github.com/dadwic"
+          >
             @dadwic
           </Link>
         </Typography>

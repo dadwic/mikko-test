@@ -15,7 +15,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   for (let index = monthInt; index < 12; ++index) {
     const endOfMonth = moment([yearInt, index]).endOf("month");
-    const _15OfMonth = moment([yearInt, index]).add(14, "days");
+    const _15OfMonth = moment([yearInt, index]).endOf("month").add(15, "days");
 
     const salaryPaymentDate = isWeekend(endOfMonth.format("dddd"))
       ? endOfMonth.add(1, "weeks").startOf("isoWeek").unix() // isoWeek starts Monday

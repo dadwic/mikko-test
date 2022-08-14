@@ -10,7 +10,9 @@ import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import InfoIcon from "@mui/icons-material/Info";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import Link from "components/Link";
 
 const drawerWidth: number = 240;
 
@@ -30,11 +32,23 @@ export default function ResponsiveDrawer(props: Props) {
     <div>
       <Toolbar />
       <List component="nav">
-        <ListItemButton>
+        <ListItemButton
+          component={Link}
+          href={`/?year=${new Date().getFullYear()}`}
+        >
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
+        </ListItemButton>
+        <ListItemButton
+          href="https://github.com/dadwic/mikko-test"
+          target="_blank"
+        >
+          <ListItemIcon>
+            <InfoIcon />
+          </ListItemIcon>
+          <ListItemText primary="About" />
         </ListItemButton>
       </List>
     </div>
