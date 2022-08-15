@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer should correctly match snapshot 1`] = `
+<footer
+  className="MuiBox-root css-1pjb125"
+>
+  <div
+    className="MuiContainer-root MuiContainer-maxWidthSm css-cuefkz-MuiContainer-root"
+  >
+    <p
+      className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+    >
+      Made with ❤️ by
+       
+      <a
+        className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1cghntr-MuiTypography-root-MuiLink-root"
+        href="https://github.com/dadwic"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        target="_blank"
+      >
+        @dadwic
+      </a>
+    </p>
+    <p
+      className="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+    >
+      Copyright © 2022
+    </p>
+  </div>
+</footer>
+`;
+
+exports[`renders unchanged 1`] = `
+<div>
+  <footer
+    class="MuiBox-root css-1pjb125"
+  >
+    <div
+      class="MuiContainer-root MuiContainer-maxWidthSm css-cuefkz-MuiContainer-root"
+    >
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+      >
+        Made with ❤️ by
+         
+        <a
+          class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1cghntr-MuiTypography-root-MuiLink-root"
+          href="https://github.com/dadwic"
+          target="_blank"
+        >
+          @dadwic
+        </a>
+      </p>
+      <p
+        class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+      >
+        Copyright © 2022
+      </p>
+    </div>
+  </footer>
+</div>
+`;

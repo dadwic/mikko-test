@@ -12,13 +12,13 @@ interface NextLinkComposedProps
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href">,
     Omit<
       NextLinkProps,
-      "href" | "as" | "onClick" | "onMouseEnter" | "onTouchStart"
+      "href" | "as" | "passHref" | "onMouseEnter" | "onClick" | "onTouchStart"
     > {
   to: NextLinkProps["href"];
   linkAs?: NextLinkProps["as"];
 }
 
-export const NextLinkComposed = React.forwardRef<
+const NextLinkComposed = React.forwardRef<
   HTMLAnchorElement,
   NextLinkComposedProps
 >(function NextLinkComposed(props, ref) {
@@ -36,7 +36,7 @@ export const NextLinkComposed = React.forwardRef<
       passHref
       locale={locale}
     >
-      <Anchor ref={ref} {...other} />
+      <Anchor data-no-markdown-link="true" ref={ref} {...other} />
     </NextLink>
   );
 });
@@ -73,7 +73,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(
   } = props;
 
   const router = useRouter();
-  const pathname = typeof href === "string" ? href : href.pathname;
+  const pathname = typeof href === "string" ? href : href?.pathname;
   const className = clsx(classNameProps, {
     [activeClassName]: router.pathname === pathname && activeClassName,
   });
@@ -90,7 +90,8 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(
     return <MuiLink className={className} href={href} ref={ref} {...other} />;
   }
 
-  const linkAs = linkAsProp || as;
+  let linkAs = linkAsProp || as || (href as string);
+
   const nextjsProps = {
     to: href,
     linkAs,

@@ -8,8 +8,12 @@
 # testing
 /coverage
 
+# Jest cache
+.jest/
+
 # next.js
 /.next/
+/.swc/
 /out/
 
 # production

@@ -1,35 +1,48 @@
-import * as React from "react";
+import React from "react";
 import type { NextPage } from "next";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
+import Head from "next/head";
 import Box from "@mui/material/Box";
-import Link from "../src/Link";
-import ProTip from "../src/ProTip";
-import Copyright from "../src/Copyright";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Toolbar from "@mui/material/Toolbar";
+import Container from "@mui/material/Container";
+import Footer from "components/Footer";
+import PaymentDates from "components/PaymentDates";
+import ResponsiveDrawer from "components/ResponsiveDrawer";
 
-const Home: NextPage = () => {
+const HomePage: NextPage = () => {
   return (
-    <Container maxWidth="lg">
+    <Box sx={{ display: "flex" }}>
+      <Head>
+        <title>Home</title>
+      </Head>
+      <ResponsiveDrawer />
       <Box
+        component="main"
         sx={{
-          my: 4,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
+          backgroundColor: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.grey[100]
+              : theme.palette.grey[900],
+          flexGrow: 1,
+          height: "100vh",
+          overflow: "auto",
         }}
       >
-        <Typography variant="h4" component="h1" gutterBottom>
-          MUI v5 + Next.js with TypeScript example
-        </Typography>
-        <Link href="/about" color="secondary">
-          Go to the about page
-        </Link>
-        <ProTip />
-        <Copyright />
+        <Toolbar />
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+                <PaymentDates />
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
+        <Footer />
       </Box>
-    </Container>
+    </Box>
   );
 };
 
-export default Home;
+export default HomePage;

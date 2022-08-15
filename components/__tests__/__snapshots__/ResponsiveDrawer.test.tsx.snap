@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResponsiveDrawer should correctly match snapshot 1`] = `null`;
+
+exports[`renders unchanged 1`] = `<div />`;
