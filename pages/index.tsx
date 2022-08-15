@@ -10,7 +10,7 @@ import Footer from "components/Footer";
 import PaymentDates from "components/PaymentDates";
 import ResponsiveDrawer from "components/ResponsiveDrawer";
 
-const Home: NextPage = () => {
+const HomePage: NextPage = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <Head>
@@ -45,4 +45,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default HomePage;
