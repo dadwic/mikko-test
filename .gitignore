@@ -7,13 +7,13 @@
 
 # testing
 /coverage
-__snapshots__/
 
 # Jest cache
 .jest/
 
 # next.js
 /.next/
+/.swc/
 /out/
 
 # production

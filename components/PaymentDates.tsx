@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import NativeSelect from "@mui/material/NativeSelect";
 import LinearProgress from "@mui/material/LinearProgress";
 import type { PaymentDate } from "interfaces";
-import { fetcher } from "utils";
+import { fetcher } from "utils/index";
 
 export default function PaymentDates() {
   const router = useRouter();

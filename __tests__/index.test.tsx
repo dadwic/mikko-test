@@ -1,9 +1,9 @@
 import { render } from "@testing-library/react";
 import { withRouter } from "next/router";
-import PaymentDates from "../PaymentDates";
+import HomePage from "pages/index";
 
-it("renders unchanged", () => {
-  const wrapper = withRouter(() => <PaymentDates />);
+it("renders homepage unchanged", () => {
+  const wrapper = withRouter(() => <HomePage />);
   const { container } = render(<>{wrapper}</>);
   expect(container).toMatchSnapshot();
 });
