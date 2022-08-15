@@ -17,6 +17,7 @@
     "jsxImportSource": "@emotion/react",
     "incremental": true,
     "paths": {
+      "utils/*": ["utils/*"],
       "components/*": ["components/*"],
       "interfaces/*": ["interfaces/*"]
     }

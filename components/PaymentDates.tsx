@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useRouter } from "next/router";
 import useSwr from "swr";
-import moment from "moment";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
@@ -13,8 +12,7 @@ import Typography from "@mui/material/Typography";
 import NativeSelect from "@mui/material/NativeSelect";
 import LinearProgress from "@mui/material/LinearProgress";
 import type { PaymentDate } from "interfaces";
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+import { fetcher } from "utils";
 
 export default function PaymentDates() {
   const router = useRouter();
@@ -53,14 +51,13 @@ export default function PaymentDates() {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            flexDirection: { xs: "column", md: "row" },
             width: { xs: "100%", md: 300 },
           }}
         >
           <Typography gutterBottom variant="h6" component="h2" color="primary">
             Payment dates of
           </Typography>
-          <Box sx={{ minWidth: 120 }}>
+          <Box sx={{ minWidth: { xs: 100, md: 120 } }}>
             <NativeSelect
               value={year}
               onChange={handleChange}
@@ -80,7 +77,6 @@ export default function PaymentDates() {
           size="small"
           variant="outlined"
           href={`/api/payment-dates?y=${year}&export=true`}
-          target="_blank"
         >
           Export
         </Button>
@@ -97,12 +93,8 @@ export default function PaymentDates() {
           {data.map((p) => (
             <TableRow hover key={p.id}>
               <TableCell>{p.month}</TableCell>
-              <TableCell>
-                {moment.unix(p.salaryPaymentDate).format("DD/MM/YYYY")}
-              </TableCell>
-              <TableCell>
-                {moment.unix(p.bonusPaymentDate).format("DD/MM/YYYY")}
-              </TableCell>
+              <TableCell>{p.salaryPaymentDate}</TableCell>
+              <TableCell>{p.bonusPaymentDate}</TableCell>
             </TableRow>
           ))}
           {data.length === 0 && (
