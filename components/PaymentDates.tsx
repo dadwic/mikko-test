@@ -76,7 +76,12 @@ export default function PaymentDates() {
             </NativeSelect>
           </Box>
         </Box>
-        <Button size="small" variant="outlined">
+        <Button
+          size="small"
+          variant="outlined"
+          href={`/api/payment-dates?y=${year}&export=true`}
+          target="_blank"
+        >
           Export
         </Button>
       </Box>

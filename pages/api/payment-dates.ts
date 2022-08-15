@@ -5,13 +5,18 @@ import type { PaymentDate } from "interfaces";
 
 const isWeekend = (d: string) => ["Sunday", "Saturday"].includes(d);
 
+let data: string = `id,month,salaryPaymentDate,bonusPaymentDate\n`;
+
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   let result: PaymentDate[] = [];
   // Get year int from query param
-  const year: string = (req.query.y as string) || "2022";
-  const yearInt: number = parseInt(year);
-  // Get current month int
-  const monthInt: number = moment().month();
+  const csv: boolean = Boolean(req.query.export as string) || false;
+  // Get current year int and selected year form query param
+  const currentYear = new Date().getFullYear();
+  const yearInt: number = Number(req.query.y as string) || currentYear;
+  const isThisYear: boolean = currentYear === yearInt;
+  // Get current month of year
+  const monthInt: number = moment(isThisYear ? [] : [yearInt]).month();
 
   for (let index = monthInt; index < 12; ++index) {
     const endOfMonth = moment([yearInt, index]).endOf("month");
@@ -25,13 +30,21 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       ? _15OfMonth.add(1, "weeks").startOf("isoWeek").unix() // isoWeek starts Monday
       : _15OfMonth.unix();
 
-    result.push({
+    const obj = {
       id: uuidv4(),
       month: moment.months(index),
       salaryPaymentDate,
       bonusPaymentDate,
-    });
+    };
+    result.push(obj);
+    // Add new row to csv file
+    data += `\n${Object.values(obj).join()}`;
   }
-  // Get data from your database
-  res.status(200).json(result);
+
+  // Export CSV|JSON
+  if (csv) {
+    res.setHeader("Content-Type", "text/csv");
+    res.setHeader("Content-Disposition", "attachment; filename=export.csv");
+    res.status(200).end(data);
+  } else res.status(200).json(result);
 }
