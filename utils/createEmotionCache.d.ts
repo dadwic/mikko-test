@@ -1,4 +1,4 @@
-import { EmotionCache } from "@emotion/utils";
+import type { EmotionCache } from "@emotion/utils";
 
 export const isBrowser: boolean;
 

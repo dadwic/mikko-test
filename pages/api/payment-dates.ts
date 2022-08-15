@@ -18,7 +18,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const monthInt: number = moment(isThisYear ? [] : [yearInt]).month();
 
   // Add columns to csv file
-  if (csv) rows.push("ID,Month,Salary Payment Date,Bonus Payment Date");
+  rows.push("ID,Month,Salary Payment Date,Bonus Payment Date");
 
   for (let index = monthInt; index < 12; ++index) {
     const endOfMonth = moment([yearInt, index]).endOf("month");

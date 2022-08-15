@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Box from "@mui/material/Box";
